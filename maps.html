@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Maps Example</title>
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY" defer></script>
+  <style>
+    /* Basic Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e0f7fa;
+    }
+
+    #map {
+      width: 100%;
+      height: 500px;
+    }
+
+    .map-container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00796b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <ul>
+      <li><a href="index.html">Resume</a></li>
+      <li><a href="sports.html">Volleyball</a></li>
+      <li><a href="anime.html">Best Anime of All Time</a></li>
+      <li><a href="maps.html">Map</a></li>
+    </ul>
+  </header>
+
+  <div class="map-container">
+    <h1>Google Maps Example</h1>
+    <div id="map"></div>
+  </div>
+
+  <script>
+    // Initialize the map
+    function initMap() {
+      const locations = [
+        { position: { lat: 41.8962, lng: -87.6638 }, title: "Cafe Central", icon: "https://maps.google.com/mapfiles/ms/icons/green-dot.png" },
+        { position: { lat: 41.8536, lng: -87.6345 }, title: "Chubby Cattle BBQ", icon: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png" },
+        { position: { lat: 41.8569, lng: -87.66340}, title: "Taqueria El Milgro", icon: "https://maps.google.com/mapfiles/ms/icons/red-dot.png" }
+      ];
+
+      const map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 12,
+        center: { lat: 41.8781, lng: -87.6298 },
+      });
+
+      locations.forEach(({ position, title, icon }) => {
+        const marker = new google.maps.Marker({
+          position,
+          map,
+          title,
+          icon,
+        });
+
+        const infoWindow = new google.maps.InfoWindow({
+          content: `<h2>${title}</h2><p>A popular destination in Chicago!</p>`,
+        });
+
+        marker.addListener("click", () => {
+          infoWindow.open(map, marker);
+        });
+      });
+    }
+
+    // Load the map after the page has fully loaded
+    window.onload = initMap;
+  </script>
+</body>
+</html>
